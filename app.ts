@@ -4,6 +4,7 @@ import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./utils/bd";
+import { ErrorMiddleWare } from "./middleware/error";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -33,3 +34,5 @@ app.listen(port, () => {
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   const err = new Error(`Route ${req.originalUrl} not found`) as any;
 });
+
+app.use(ErrorMiddleWare);
